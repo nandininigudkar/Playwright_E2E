@@ -1,1 +1,1 @@
-export * from './pageFixtures';
+export * from "./pageFixtures";

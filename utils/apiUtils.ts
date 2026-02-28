@@ -1,4 +1,4 @@
-import fetch from 'node-fetch';
+import fetch from "node-fetch";
 
 export async function getJson(url: string) {
   const res = await fetch(url);

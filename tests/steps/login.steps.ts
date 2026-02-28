@@ -1,7 +1,7 @@
-import { Before, After, Given, When, Then } from '@cucumber/cucumber';
-import { chromium } from 'playwright';
-import { LoginPage } from '../../pages/LoginPage';
-import assert from 'assert';
+import { Before, After, Given, When, Then } from "@cucumber/cucumber";
+import { chromium } from "playwright";
+import { LoginPage } from "../../pages/LoginPage";
+import assert from "assert";
 
 // Use Cucumber World (this) to store scenario-scoped objects.
 Before(async function () {
@@ -26,19 +26,22 @@ After(async function () {
   if (this.browser) await this.browser.close();
 });
 
-Given('I open the OrangeHRM demo page', async function () {
+Given("I open the OrangeHRM demo page", async function () {
   // Use the POM attached to the World
   // @ts-ignore
   await this.loginPage.open();
 });
 
-When('I login with username {string} and password {string}', async function (username: string, password: string) {
-  // @ts-ignore
-  await this.loginPage.login(username, password);
-});
+When(
+  "I login with username {string} and password {string}",
+  async function (username: string, password: string) {
+    // @ts-ignore
+    await this.loginPage.login(username, password);
+  },
+);
 
-Then('I should be logged in', async function () {
+Then("I should be logged in", async function () {
   // @ts-ignore
   const loggedIn = await this.loginPage.isLoggedIn();
-  assert.strictEqual(loggedIn, true, 'Expected user to be logged in');
+  assert.strictEqual(loggedIn, true, "Expected user to be logged in");
 });

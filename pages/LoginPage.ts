@@ -1,5 +1,5 @@
-import { Page, Locator } from '@playwright/test';
-import BasePage from './BasePage';
+import { Page, Locator } from "@playwright/test";
+import BasePage from "./BasePage";
 
 export class LoginPage extends BasePage {
   readonly usernameInput: Locator;
@@ -9,13 +9,19 @@ export class LoginPage extends BasePage {
   constructor(page: Page) {
     super(page);
     // Use multiple selector fallbacks so the page-object works across different versions of the demo site
-    this.usernameInput = page.locator('input[name="username"], #txtUsername, input[placeholder="Username"]');
-    this.passwordInput = page.locator('input[name="password"], #txtPassword, input[placeholder="Password"]');
-    this.loginButton = page.locator('button[type="submit"], input[type="submit"], #btnLogin');
+    this.usernameInput = page.locator(
+      'input[name="username"], #txtUsername, input[placeholder="Username"]',
+    );
+    this.passwordInput = page.locator(
+      'input[name="password"], #txtPassword, input[placeholder="Password"]',
+    );
+    this.loginButton = page.locator(
+      'button[type="submit"], input[type="submit"], #btnLogin',
+    );
   }
 
   async open() {
-    await this.goto('https://opensource-demo.orangehrmlive.com/');
+    await this.goto("https://opensource-demo.orangehrmlive.com/");
   }
 
   /**
@@ -28,16 +34,16 @@ export class LoginPage extends BasePage {
 
     // Click and wait for either navigation or a dashboard marker.
     await Promise.all([
-      this.page.waitForNavigation({ waitUntil: 'networkidle' }).catch(() => {}),
+      this.page.waitForNavigation({ waitUntil: "networkidle" }).catch(() => {}),
       this.loginButton.click(),
     ]);
   }
 
   async isLoggedIn(): Promise<boolean> {
     const markers = [
-      this.page.getByText('Dashboard'),
-      this.page.getByText('Admin'),
-      this.page.getByRole('button', { name: /Logout|Welcome/i }),
+      this.page.getByText("Dashboard"),
+      this.page.getByText("Admin"),
+      this.page.getByRole("button", { name: /Logout|Welcome/i }),
     ];
 
     for (const m of markers) {

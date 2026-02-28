@@ -1,4 +1,4 @@
-import { Page, Locator } from '@playwright/test';
+import { Page, Locator } from "@playwright/test";
 
 export class LoginPage {
   readonly page: Page;
@@ -9,13 +9,19 @@ export class LoginPage {
   constructor(page: Page) {
     this.page = page;
     // Use multiple selector fallbacks so the page-object works across different versions of the demo site
-    this.usernameInput = page.locator('input[name="username"], #txtUsername, input[placeholder="Username"]');
-    this.passwordInput = page.locator('input[name="password"], #txtPassword, input[placeholder="Password"]');
-    this.loginButton = page.locator('button[type="submit"], input[type="submit"], #btnLogin');
+    this.usernameInput = page.locator(
+      'input[name="username"], #txtUsername, input[placeholder="Username"]',
+    );
+    this.passwordInput = page.locator(
+      'input[name="password"], #txtPassword, input[placeholder="Password"]',
+    );
+    this.loginButton = page.locator(
+      'button[type="submit"], input[type="submit"], #btnLogin',
+    );
   }
 
   async goto() {
-    await this.page.goto('https://opensource-demo.orangehrmlive.com/');
+    await this.page.goto("https://opensource-demo.orangehrmlive.com/");
   }
 
   /**
@@ -28,7 +34,7 @@ export class LoginPage {
 
     // Click and wait for either navigation or a dashboard marker.
     await Promise.all([
-      this.page.waitForNavigation({ waitUntil: 'networkidle' }).catch(() => {}),
+      this.page.waitForNavigation({ waitUntil: "networkidle" }).catch(() => {}),
       this.loginButton.click(),
     ]);
   }
@@ -39,9 +45,9 @@ export class LoginPage {
    */
   async isLoggedIn(): Promise<boolean> {
     const markers = [
-      this.page.getByText('Dashboard'),
-      this.page.getByText('Admin'),
-      this.page.getByRole('button', { name: /Logout|Welcome/i }),
+      this.page.getByText("Dashboard"),
+      this.page.getByText("Admin"),
+      this.page.getByRole("button", { name: /Logout|Welcome/i }),
     ];
 
     for (const m of markers) {

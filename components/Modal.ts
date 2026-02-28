@@ -1,5 +1,5 @@
 export class Modal {
-  constructor(private rootSelector = '.modal') {}
+  constructor(private rootSelector = ".modal") {}
 
   async isOpen(page: any) {
     return page.locator(this.rootSelector).isVisible();
